@@ -1,0 +1,33 @@
+﻿<grammar root="GetEngagementByTE">
+  <import schema="requests.schema" name="requests"/>
+
+  <!-- Define root rule-->
+  <rule id="GetEngagementByTE">
+    <example>engagement about marketing</example>
+    engagement
+    <tag>
+      isBeyondEndOfQuery = false;
+      query = All();
+    </tag>
+
+    <item repeat="1-">
+      <!-- Do not complete additional attributes beyond end of query -->
+      
+
+      <one-of>
+        <!-- about <keyword> -->
+        <item>
+          about <attrref uri="requests#Engagement.Keywords" name="keyword"/>
+          <tag>keywordQuery = Composite(keyword);</tag>
+		  <tag>query = And(query, keywordQuery);</tag>
+        </item>
+      </one-of>
+
+      <!-- Determine if current parse position is beyond end of query -->
+      
+    </item>
+    <tag>out = query;</tag>
+  </rule>
+
+ 
+</grammar>
